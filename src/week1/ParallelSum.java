@@ -12,8 +12,8 @@ import java.util.concurrent.*;
 
 public class ParallelSum {
     static double sum = 0;
-    public static void main(String[] args)
-    {
+
+    public static void main(String[] args) {
         // Create a list
         final int N = 1000;
         double[] list = new double[N];
@@ -23,34 +23,31 @@ public class ParallelSum {
         }
     }
 
-
-
     public static double parallelSum(double[] list)
     {
         //implementeer met Fork/Join!
-        ForkJoinPool<double> pool = new ForkJoinPool();
-
-        return sum;
+        RecursiveTask<Double> task = new SumTask(list, 0, list.length);
+        ForkJoinPool pool = new ForkJoinPool();
+        return pool.invoke(task);
     }
 
-   /* private static class SumTask extends RecursiveTask<Double>
+     private static class SumTask extends RecursiveTask<Double>
     {
         private final static int THRESHOLD = 1000;
-        private int[] list;
-        private int low;
-        private int high;
-    }
+        private double[] list;
+        private double sum;
+        private double start;
+        private double mid;
+        private double max;
 
-     private static class MaxTask extends RecursiveTask<Integer> {
-        private final static int THRESHOLD = 1000;
-        private int[] list;
-        private int low;
-        private int high;
 
-        public MaxTask(int[] list, int low, int high) {
+        public SumTask(double[] list, double sum, double start, double mid, double max ) {
             this.list = list;
-            this.low = low;
-            this.high = high;
+            this.sum = sum;
+            this.start = start;
+            this.mid = mid;
+            this.max = max;
+
         }
 
         @Override
@@ -59,13 +56,13 @@ public class ParallelSum {
                 int max = list[0];
                 for (int i = low; i < high; i++)
                     if (list[i] > max)
-                        max = list[i];
+                        //tel op?
                 return new Integer(max);
 
             } else {
-                int mid = (low + high) / 2;
-                RecursiveTask<Integer> left = new MaxTask(list, low, mid);
-                RecursiveTask<Integer> right = new MaxTask(list, mid, high);
+                double mid = (start + max) / 2;
+                RecursiveTask<Double> left = new SumTask(list, low, mid);
+                RecursiveTask<Double> right = new SumTask(list, mid, high);
                 right.fork();
                 left.fork();
                 return new Integer(Math.max(left.join().intValue(),
@@ -73,5 +70,4 @@ public class ParallelSum {
             }
         }
     }
-*/
 }
