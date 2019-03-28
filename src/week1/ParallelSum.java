@@ -7,7 +7,7 @@ package week1;
 //
 // !Note! : this is quite similar to LISTING 30.11 ParallelMax.java (see Blackboard).
 // But now you create a private static class SumTask extends RecursiveTask<Double> { }.
-
+/*
 import java.util.concurrent.*;
 
 public class ParallelSum {
@@ -71,3 +71,4 @@ public class ParallelSum {
         }
     }
 }
+*/
