@@ -2,7 +2,7 @@ public class FileProcessor {
   public static void main(final String[] arguments) {
     String incomingdata = "Dummy inkomende data";
     // Signen met SHA256
-    FileSignStrategy fileSignStrategy = new SignSHA256();
+    FileSignStrategy fileSignStrategy = new SignMD5();
     String sha256SignedData = fileSignStrategy.sign(incomingdata);
     System.out.println(sha256SignedData);
 
