@@ -8,5 +8,9 @@ public class WarEffortDemo {
         Factory Factory = new Aviation();
         WarMachine warmachine = Factory.buildArms();
         warmachine.toWar();
+
+        Factory = new ShipYard();
+        warmachine = Factory.buildArms();
+        warmachine.toWar();
     }
 }
